@@ -8,8 +8,8 @@
 
 | Nome           | Matrícula     |
 |----------------|---------------|
-| Arthur Riess   |202407096026   |
-| Yago Carvalho  |               |
+| Arthur Riess   | 202407096026  |
+| Yago Carvalho  | 202407095781  |
 | Felipe Maia    |               |
 | Pedro Macedo   |               |
 
