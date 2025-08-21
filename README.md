@@ -2,6 +2,12 @@
 
 **Código da Disciplina**: IBM8936<br>
 
+Grupo: 
+  Arthus Ries
+  Yago Carvalho
+  Felipe Maia
+  Pedro Macedo
+
 ## Sobre 
 Descreva o seu projeto em linhas gerais. 
 
