@@ -1,18 +1,30 @@
-# Projeto Back-End 
+# 🚀 Projeto Back-End
 
-**Código da Disciplina**: IBM8936<br>
+**Código da Disciplina**: IBM8936
 
-### Grupo: 
-  * Arthus Ries
-  * Yago Carvalho
-  * Felipe Maia
-  * Pedro Macedo
+---
 
-## Sobre 
-Descreva o seu projeto em linhas gerais. 
+##  Grupo
 
-## Instalação 
-**Linguagens**: Python, Django<br>
-**Tecnologias**: Github, Visual Studio Code<br>
- os pré-requisitos para rodar o seu projeto são UX, Engenharia de Dados, POO.
+| Nome           | Matrícula     |
+|----------------|---------------|
+| Arthur Riess   |202407096026   |
+| Yago Carvalho  |               |
+| Felipe Maia    |               |
+| Pedro Macedo   |               |
 
+---
+
+##  Sobre
+
+Descreva o seu projeto em linhas gerais.
+
+---
+
+##  Instalação
+
+**Linguagens**: Python, Django  
+**Tecnologias**: Github, Visual Studio Code  
+**Pré-requisitos**: UX, Engenharia de Dados, POO
+
+---
