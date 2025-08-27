@@ -10,8 +10,8 @@
 |----------------|---------------|
 | Arthur Riess   | 202407096026  |
 | Yago Carvalho  | 202407095781  |
-| Felipe Maia    |               |
-| Pedro Macedo   |               |
+| Felipe Maia    | 202408474474  |
+| Pedro Macedo   | 202401318728  |
 
 ---
 
