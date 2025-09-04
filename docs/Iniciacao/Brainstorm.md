@@ -10,7 +10,7 @@ O brainstorm é uma técnica de elicitação de requisitos que consiste em reuni
  
 ## Metodologia
 <p align = "justify">
-A equipe se reuniu para debater ideias gerais sobre o projeto via..., começou .... e terminou..., onde o XXXX XXXX foi o moderador, direcionando a equipe com questões pré-elaboradas, e transcrevendo as respostas para o documento.
+A equipe se reuniu para debater ideias gerais sobre o projeto via discord, começou dia 3/9 e terminou no mesmo dia, onde o Arthur Riess Cunha foi o moderador, direcionando a equipe com questões pré-elaboradas, e transcrevendo as respostas para o documento.
 </p>
  
 ## Brainstorm
@@ -21,102 +21,60 @@ A equipe se reuniu para debater ideias gerais sobre o projeto via..., começou .
  
 ### 1. Qual o objetivo principal da aplicação?
  
-<p align = "justify">
-<b>XXXX</b> - Deve ser uma plataforma onde qualquer pessoa possa...
-</p>
- 
-<b>ZZZ</b> - A plataforma deve fornece...
- 
-<b>YYYY</b> - O objetivo da aplicação é....
- 
-<b>WWWW</b> - O principal objetivo da aplicação é a...
- 
-<b>KKKK</b> - A plataforma deve gerenciar...
-</p>
+Simplificar e centralizar o sistema de aplicação e gerenciamento de vagas de monitoria na IBMEC.
  
 ---
  
 ### 2. Como será o processo para cadastrar um novo cliente?
  
-<p align = "justify">
-<b>XXXX</b> - O moderador deverá fazer login e...
- 
-<b>YYYY</b> - O cliente...
- 
-<b>WWWW</b> - Com o usuário logado, ele deverá...
-
-<b>ZZZZ</b> - O cliente...
- 
-<b>KKK</b> - O cliente...
- 
+Aluno se cadastra manualmente, inserindo seus dados pessoais (Matrícula, curso, email institucional, senha de acesso, qualidades...)
+Para o professor a lógica é a mesma, porém possui sua própria interface de professor.
 ---
  
 ### 3. Como será a forma de adicionar produtos?
  
-<p align = "justify">
-<b>XXXX</b> - O cliente ao cadastrar...
-</p>
- 
-<p align = "justify">
-<b>YYYYY</b> - O produto tem...
-</p>
- 
-<b>ZZZZ</b> - O produto....
- 
-<b>XXXX</b> - O produto....
+O professor encarregado da disciplina poderá criar vagas, preenchendo as seguintes informações:
+1 - Disciplina
+2 - Requisitos (CR mínimo ou outros)
+3 - Detalhes da vaga (Carga horária, número de vagas, remuneração (se houver))
 
  
 ---
  
 ### 4. Outras perguntas pertinentes ao contexto
 
-<p align = "justify">
-<b>XXXX</b> - Com a localização...
- 
-<b>YYYY</b> - O cliente...
- 
-<b>ZZZ</b> - O cliente...
+O aluno terá sua interface própria, no qual pode ver as vagas disponíveis, seus detalhes e requisitos impostos pelo professor, além de poder ver o status da sua aplicação (Recusada, Aceita, Em análise)
  
 ---
  
-### 5. "Outras perguntas pertinentes ao contexto", Como seria a forma de adicionar do cliente adicionar os produtos ?
-<p align = "justify">
-<b>XXX</b> - O cliente....
-</p>
- 
-### 6. Quais informações seriam interessante para o cliente?
-<p align = "justify">
-   <b>XXX</b> - Informações...
-   
-   <b>ZZZZ</b> - O cliente usuário poderá acessar informações...
+### 5. "Outras perguntas pertinentes ao contexto"
 
-   <b>WWWWs</b> - O usuário poderá ver scouts de partidas do torneio, ver as regras dos torneios, locais e data das partidas.
-   
-</p>
+Seria interessante uma funcionalidade para poder exportar dados para a coordenação a respeito do número de aplicações, estatísticas e insights.
  
+
 ### Requisitos elicitados
  
 |ID|Descrição|
 |----|-------------|
-|BS01| O cliente...|
-|BS02| O cliente...|
-|BS03| O cliente...|
-|BS04| O cliente...|
-|BS05| O cliente...|
-|BS06| O cliente...|
-|BS07| O cliente...|
-|BS08| O cliente...|
-|BS09| O cliente...|
-|BS10| O produto...|
-|BS11| O produto...|
-|BS12| O produto...|
-|BS13| O produto...|
-|BS14| O produto...|
-|BS15| O produto...|
- 
+|BS01| O cliente poderá fazer cadastro|
+|BS02| O cliente poderá ver as vagas disponíveis em sua interface|
+|BS03| O cliente poderá se aplicar as vagas|
+|BS04| O cliente poderá fazer login com suas informações|
+|BS05| O cliente poderá editar seu perfil|
+|BS06| O cliente deve ter uma página para tirar dúvidas sobre a vaga|
+|BS07| O cliente poderá analisar o status da sua aplicação|
+|BS08| O professor poderá criar vagas|
+|BS09| O professor poderá editar vagas|
+|BS10| O professor poderá criar requisitos|
+|BS11| O professor poderá dar feedback aos candidatos |
+|BS12| O professor poderá excluir vagas|
+|BS13| O professor poderá analisar as candidaturas|
+|BS14| A direção deve receber dados e insights sobre as candidaturas e vagas|
+
+
 ## Conclusão
 <p align = "justify">
-Através da aplicação da técnica, foi possível elicitar alguns dos primeiros requisitos do projeto.
+Através da aplicação da técnica, esclarecemos os requisitos do projeto e criamos um direcionamento para começar a desenvolver com mais clareza no futuro.
 </p>
 ## Referências Bibliográficas
  
@@ -125,5 +83,5 @@ Através da aplicação da técnica, foi possível elicitar alguns dos primeiros
  
 ## Autor(es)
 | Data | Versão | Descrição | Autor(es) |
-| -- | -- | -- | -- |
-| DD/MM/YYYY | 1.0 | Criação do documento | XXX XXXX, XXXX XXXX, YYY YYYY e ZZZ XXXX |
+| 3/9 | -- | -- | -- | Arthur Riess Cunha e Grupo
+| 3/9 | 1.0 | Criação do documento | Equipe Elon Musk |
