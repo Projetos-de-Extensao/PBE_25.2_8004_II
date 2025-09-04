@@ -71,6 +71,7 @@ Seria interessante uma funcionalidade para poder exportar dados para a coordena�
 |BS12| O professor poderá excluir vagas|
 |BS13| O professor poderá analisar as candidaturas|
 |BS14| A direção deve receber dados e insights sobre as candidaturas e vagas|
+|BS15| A direção poderá fazer cadastro|
 
 
 ## Conclusão
