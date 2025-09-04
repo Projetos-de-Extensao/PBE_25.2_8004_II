@@ -29,6 +29,7 @@ Simplificar e centralizar o sistema de aplicação e gerenciamento de vagas de m
  
 Aluno se cadastra manualmente, inserindo seus dados pessoais (Matrícula, curso, email institucional, senha de acesso, qualidades...)
 Para o professor a lógica é a mesma, porém possui sua própria interface de professor.
+
 ---
  
 ### 3. Como será a forma de adicionar produtos?
