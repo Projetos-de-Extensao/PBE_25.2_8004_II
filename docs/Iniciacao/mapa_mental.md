@@ -37,4 +37,4 @@ O mapa mental é uma ficha de estudos que ajuda a dar uma visão geral do tema, 
 ## Versionamento
 | Data | Versão | Descrição | Autor(es) |
 | -- | -- | -- | -- |
-| 24/09/25 | 1.0 | Criação do documento | Arthur Ries |
+| 24/09/25 | 1.0 | Criação do documento | Arthur Riess |
