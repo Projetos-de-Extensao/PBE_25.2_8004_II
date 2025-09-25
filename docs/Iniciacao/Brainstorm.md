@@ -83,7 +83,8 @@ Através da aplicação da técnica, esclarecemos os requisitos do projeto e cri
 > BARBOSA, S. D. J; DA SILVA, B. S. Interação humano-computador. Elsevier, 2010.
  
  
-## Autor(es)
+## Autores
+
 | Data | Versão | Descrição | Autor(es) |
-| 3/9 | -- | -- | -- | Arthur Riess Cunha e Grupo
+| -- | -- | -- | -- |
 | 3/9 | 1.0 | Criação do documento | Equipe Elon Musk |
