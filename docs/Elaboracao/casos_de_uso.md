@@ -177,3 +177,7 @@ O email informado deve ser institucional da ibmec.
 5. O usuário tem a opção de exportar o relatório no modelo que preferir (PDF, XLSX).
 
 **Pós-condição:** Um relatório é gerado com base nos filtros aplicados.
+
+### Diagrama de caso de uso
+
+![Diagrama de Uso](diagrama_de_uso.png)
