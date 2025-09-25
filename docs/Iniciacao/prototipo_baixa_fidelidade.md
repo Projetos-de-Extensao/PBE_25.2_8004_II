@@ -67,7 +67,7 @@ Iniciamos o projeto através dos levantamentos iniciais da equipe, após discuss
 [![Prototipo 12](../assets/Prototipo/image.png)](../assets/Prototipo/image.png)
 
 ### Tela de inscrição em torneio
-
+    
 [![Prototipo 13](../assets/Prototipo/image.png)](../assets/Prototipo/image.png)
 
 <p align = "justify">
