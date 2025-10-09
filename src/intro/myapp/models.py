@@ -1,5 +1,11 @@
 from django.db import models
 
+class Produto(models.Model):
+    nome = models.CharField(max_length=100)
+    preco = models.DecimalField(max_digits=10, decimal_places=2)
+    descricao = models.TextField()
+    disponivel = models.BooleanField(default=True)
+
 class Aluno(models.Model):
     matricula = models.CharField(max_length=20, unique=True)
     nome = models.CharField(max_length=100)
@@ -20,6 +26,18 @@ class Vaga(models.Model):
     crminimo = models.FloatField()
     disciplina = models.CharField(max_length=100)
     statusvaga = models.CharField(max_length=20)
+
+class Candidatura(models.Model):
+    nome = models.CharField(max_length=30)
+    telefone = models.CharField(max_length=15)
+    documento = models.FileField(upload_to='documentos/')
+
+class RegistroMonitoria(models.Model):
+    nome = models.CharField(max_length=30)
+    email = models.EmailField()
+    matricula = models.CharField(max_length=12)
+    horasTrabalhadas = models.IntegerField()
+    dataEntrada = models.DateField()
    
     def __str__(self):
         return self.nomepython 
