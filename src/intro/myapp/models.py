@@ -1,9 +1,10 @@
 from django.db import models
 
-class Student(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    enrollment_date = models.DateField()
+class Produto(models.Model):
+    nome = models.CharField(max_length=100)
+    preco = models.DecimalField(max_digits=6, decimal_places=2)
+    descricao = models.TextField()
+    disponivel = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return self.nomepython 
