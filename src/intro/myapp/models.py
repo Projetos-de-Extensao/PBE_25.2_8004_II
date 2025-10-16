@@ -44,7 +44,11 @@ class Disciplina(models.Model):
     codigo = models.CharField(max_length=20)
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
     cargaHoraria = models.IntegerField()
-    ementa = models.TextField() # !!!!!!!!!!! FALTA MIGRAR ESSA CLASSE !!!!!!!!! #
+    ementa = models.TextField()
+
+class Inscricao(models.Model):
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+    disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
    
     def __str__(self):
         return self.nomepython 
