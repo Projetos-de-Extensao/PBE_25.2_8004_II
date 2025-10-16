@@ -46,6 +46,16 @@ title: Diagrama de Classes
 
 ---
 
+### 📖 Disciplina
+**Atributos:**
+- Nome  
+- Código  
+- Professor  
+- cargaHoraria  
+- ementa  
+
+---
+
 ### 📝 Candidatura
 **Atributos:**
 - ID  
