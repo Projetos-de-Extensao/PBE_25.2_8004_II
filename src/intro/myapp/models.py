@@ -38,6 +38,13 @@ class RegistroMonitoria(models.Model):
     matricula = models.CharField(max_length=12)
     horasTrabalhadas = models.IntegerField()
     dataEntrada = models.DateField()
+
+class Disciplina(models.Model):
+    nomepython = models.CharField(max_length=100)
+    codigo = models.CharField(max_length=20)
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+    cargaHoraria = models.IntegerField()
+    ementa = models.TextField() # !!!!!!!!!!! FALTA MIGRAR ESSA CLASSE !!!!!!!!! #
    
     def __str__(self):
         return self.nomepython 

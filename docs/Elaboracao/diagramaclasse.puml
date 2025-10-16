@@ -61,10 +61,19 @@ class RegistroMonitoria {
     +validadoPor: Professor
 }
 
+class Disciplina {
+    +nome: string
+    +codigo: string
+    +professor: Professor
+    +cargaHoraria: int
+    +ementa: string
+}
+
 Aluno --> Candidatura: realiza
 Vaga --> Candidatura: recebe
 Professor --> Vaga: cadastra
 Candidatura --> RegistroMonitoria: gera
 Aluno --> RegistroMonitoria: registra horas
 Direcao --> RegistroMonitoria: valida relatórios
+Disciplina "1" --> "0..*" Vaga: associada à
 @enduml
