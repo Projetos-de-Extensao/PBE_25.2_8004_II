@@ -16,10 +16,23 @@ class Aluno(models.Model):
     periodo = models.IntegerField()
     telefone = models.CharField(max_length=15)
 
+    def fornecerInfo(self):
+        return f"{self.nome} - {self.curso} - CR:{self.crgeral}"
+
 class Professor(models.Model):
     nome = models.CharField(max_length=100)
     cpf = models.CharField(max_length=14, unique=True)
     telefone = models.CharField(max_length=15)
+
+    def criarVaga(self, nome, crminimo, disciplina, statusvaga):
+        vaga = Vaga(
+            nome=nome,
+            crminimo=crminimo,
+            disciplina=disciplina,
+            statusvaga=statusvaga
+        )
+        vaga.save()
+        return vaga
 
 class Vaga(models.Model):
     nome = models.CharField(max_length=100)
@@ -27,10 +40,17 @@ class Vaga(models.Model):
     disciplina = models.CharField(max_length=100)
     statusvaga = models.CharField(max_length=20)
 
+    def exibirVaga(self):
+        return f"Vaga: {self.nome}, Disciplina: {self.disciplina}, Descrição: { self.descricao}, Status: {self.statusvaga}"
+
 class Candidatura(models.Model):
     nome = models.CharField(max_length=30)
     telefone = models.CharField(max_length=15)
     documento = models.FileField(upload_to='documentos/')
+
+    def enviarCandidatura(self):
+        return f"Candidatura de {self.nome} enviada com sucesso."
+
 
 class RegistroMonitoria(models.Model):
     nome = models.CharField(max_length=30)
@@ -39,6 +59,9 @@ class RegistroMonitoria(models.Model):
     horasTrabalhadas = models.IntegerField()
     dataEntrada = models.DateField()
 
+    def registrarMonitoria(self):
+        return f"Registro de monitoria para {self.nome} em {self.dataEntrada}."
+
 class Disciplina(models.Model):
     nomepython = models.CharField(max_length=100)
     codigo = models.CharField(max_length=20)
@@ -46,9 +69,12 @@ class Disciplina(models.Model):
     cargaHoraria = models.IntegerField()
     ementa = models.TextField()
 
+    def registrarVaga(self):
+        return f"Vaga de monitoria na disciplina {self.nomepython} registrada com sucesso."
+
 class Inscricao(models.Model):
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
    
-    def __str__(self):
-        return self.nomepython 
+    def inscrever(self):
+        return f"Aluno {self.aluno.nome} inscrito na disciplina {self.disciplina.nomepython} com sucesso."

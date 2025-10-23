@@ -1,4 +1,4 @@
-@startuml
+@startuml DiagramaDeClasses
 '-----------------------------------
 ' Diagrama de Classes - Equipe Elon Musk
 ' Sistema de Monitoria IBMEC
@@ -16,6 +16,7 @@ class Aluno {
     +senha: string
     +cadastrar(): void
     +editarPerfil(): void
+    +fornecerInformacoes(): void
 }
 
 class Professor {
@@ -24,6 +25,7 @@ class Professor {
     +email: string
     +telefone: string
     +senha: string
+    +criarVagas(): void
 }
 
 class Direcao {
@@ -40,9 +42,10 @@ class Vaga {
     +disciplina: string
     +status: string
     +prazoInscricao: date
+    +exibirVagas(): void
 }
 
-class Candidatura {
+class Inscricao {
     +id: int
     +aluno: Aluno
     +vaga: Vaga
@@ -50,6 +53,7 @@ class Candidatura {
     +status: string
     +dataCandidatura: date
     +validarCR(): bool
+    +inscrever(): void
 }
 
 class RegistroMonitoria {
@@ -59,6 +63,7 @@ class RegistroMonitoria {
     +horasTrabalhadas: float
     +dataRegistro: date
     +validadoPor: Professor
+    +registrarMonitoria(): void
 }
 
 class Disciplina {
@@ -69,11 +74,12 @@ class Disciplina {
     +ementa: string
 }
 
-Aluno --> Candidatura: realiza
-Vaga --> Candidatura: recebe
-Professor --> Vaga: cadastra
-Candidatura --> RegistroMonitoria: gera
-Aluno --> RegistroMonitoria: registra horas
-Direcao --> RegistroMonitoria: valida relatórios
-Disciplina "1" --> "0..*" Vaga: associada à
+Aluno *-- Inscricao: Realizada por
+Inscricao *-- Vaga: Recebe
+Vaga *-- Disciplina: Relacionada a
+Professor o-- Disciplina: Ministrada por
+Aluno *-- RegistroMonitoria: Realiza
+Vaga *-- RegistroMonitoria: Associada a
+Professor --> RegistroMonitoria: valida
+Direcao o-- Vaga: Gerencia
 @enduml
