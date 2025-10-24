@@ -3,7 +3,7 @@ from rest_framework import serializers
 from myapp.models import Produto
 from .models import (
     Produto, Aluno, Professor, Vaga,
-    Candidatura, RegistroMonitoria,
+    RegistroMonitoria,
     Disciplina, Inscricao
 )
 
@@ -36,14 +36,6 @@ class VagaSerializer(serializers.ModelSerializer):
         model = Vaga
         fields = ['id', 'nome', 'descricao', 'crminimo', 'disciplina', 'statusvaga']
         read_only_fields = ['id']
-
-
-class CandidaturaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Candidatura
-        fields = ['id', 'nome', 'telefone', 'documento']
-        read_only_fields = ['id']
-
 
 class RegistroMonitoriaSerializer(serializers.ModelSerializer):
     class Meta:
