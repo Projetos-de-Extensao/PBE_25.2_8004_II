@@ -1,4 +1,4 @@
-const apiUrl = "http://127.0.0.1:8000/api/produtos/";
+const apiUrl = "http://127.0.0.1:8000/api/contents/";
 
 // Função para obter e listar conteúdos
 async function fetchContents() {
