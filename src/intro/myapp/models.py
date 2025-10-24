@@ -15,7 +15,6 @@ class Aluno(models.Model):
     disciplina = models.CharField(max_length=100)
     periodo = models.IntegerField()
     telefone = models.CharField(max_length=15)
-    
 
     def fornecerInfo(self):
         return f"{self.nome} - {self.curso} - CR:{self.crgeral}"
