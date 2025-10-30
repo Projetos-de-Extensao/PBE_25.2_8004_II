@@ -51,7 +51,8 @@ class Vaga(models.Model):
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE, related_name='vagas', null=True, blank=True)
     statusvaga = models.CharField(max_length=20)
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name='vagas', null=True, blank=True)
-    prazo_inscricao = models.DateField(null=True, blank=True)  
+    prazo_inscricao = models.DateField(null=True, blank=True)
+    descricao = models.TextField(default='')  
 
     def exibirVaga(self):
         return f"Vaga: {self.nome}, Disciplina: {self.disciplina.nome}, Status: {self.statusvaga}"
