@@ -21,14 +21,14 @@ class AlunoSerializer(serializers.ModelSerializer):
             'id', 'matricula', 'nome', 'cpf', 'crgeral',
             'curso', 'periodo', 'telefone'
         ]
-        read_only_fields = ['id', 'matricula', 'cpf']
+        read_only_fields = ['id']
 
 
 class ProfessorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Professor
         fields = ['id', 'nome', 'cpf', 'telefone']
-        read_only_fields = ['id', 'cpf']
+        read_only_fields = ['id']
 
 
 class VagaSerializer(serializers.ModelSerializer):
@@ -50,7 +50,7 @@ class DisciplinaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Disciplina
         fields = ['id', 'nome', 'codigo', 'professor', 'cargaHoraria', 'ementa']
-        read_only_fields = ['id', 'codigo']
+        read_only_fields = ['id']
 
 
 class InscricaoSerializer(serializers.ModelSerializer):
