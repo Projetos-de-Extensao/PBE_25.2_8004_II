@@ -1,3 +1,5 @@
+# Em core/views.py
+
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .models import Professor, Aluno, Disciplina, Vaga, Candidatura, RegistroMonitoria, Inscricao
@@ -6,6 +8,7 @@ from .serializers import (
     VagaSerializer, CandidaturaSerializer, RegistroMonitoriaSerializer,
     InscricaoSerializer
 )
+# (Vamos mover o import do MyTokenObtainPairSerializer para baixo)
 from .permissions import IsProfessor, IsAluno 
 
 
@@ -64,3 +67,16 @@ class InscricaoViewSet(viewsets.ModelViewSet):
     queryset = Inscricao.objects.all()
     serializer_class = InscricaoSerializer
     permission_classes = [IsAdminUser] # Apenas Admin gerencia isso por enquanto
+
+# --- NOVO CÓDIGO PARA O TOKEN JWT (Passo 1.3) ---
+
+from rest_framework_simplejwt.views import TokenObtainPairView
+# Importe o novo serializer que criamos no 'serializers.py'
+from .serializers import MyTokenObtainPairSerializer 
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    """
+    Substitui a view padrão de obtenção de token
+    para usar o nosso serializer customizado.
+    """
+    serializer_class = MyTokenObtainPairSerializer

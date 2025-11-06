@@ -1,26 +1,20 @@
+// Em src/pages/Home.jsx
+
 import React from 'react';
-import VagaCard from '../components/VagaCard';
-import VagaForm from '../components/VagaForm';
+import { Typography, Paper, Box } from '@mui/material';
 
-export default function Home({ vagas = [], disciplinas = [], onFetchVagas, onCreateVaga, mensagem }) {
+export default function Home() {
   return (
-    <div>
-      <h2>Vagas Abertas</h2>
-      <button onClick={onFetchVagas}>Atualizar Lista de Vagas</button>
-      <p style={{ color: 'blue' }}>{mensagem}</p>
-
-      <div style={{ marginTop: '1rem' }}>
-        {vagas.length > 0 ? (
-          vagas.map((v) => <VagaCard key={v.id} vaga={v} />)
-        ) : (
-          <p>Nenhuma vaga encontrada.</p>
-        )}
-      </div>
-
-      <hr />
-
-      <h2>Criar Nova Vaga</h2>
-      <VagaForm disciplinas={disciplinas} onCreate={onCreateVaga} />
-    </div>
+    // 'Paper' é um "card" com sombra
+    <Paper elevation={3} sx={{ padding: '2rem' }}>
+      <Box textAlign="center">
+        <Typography variant="h3" component="h1" gutterBottom>
+          Bem-vindo ao Portal de Monitoria
+        </Typography>
+        <Typography variant="h5" component="p" color="textSecondary">
+          Acesse o sistema para ver as vagas ou cadastrar novas oportunidades.
+        </Typography>
+      </Box>
+    </Paper>
   );
 }

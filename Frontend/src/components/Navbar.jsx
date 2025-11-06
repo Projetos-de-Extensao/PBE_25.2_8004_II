@@ -1,13 +1,57 @@
-import React from 'react';
+// Em src/components/Navbar.jsx
 
-export default function Navbar({ onHome, onLogout, isLoggedIn }) {
+import React from 'react';
+import { AppBar, Toolbar, Typography, Button, Box, IconButton } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
+
+// --- IMPORTAMOS O NOSSO HOOK ---
+import { useAuth } from '../context/AuthContext';
+
+export default function Navbar() {
+  // --- USAMOS O CONTEXTO ---
+  const { isLoggedIn, logout } = useAuth(); // Pegamos o estado REAL
+
   return (
-    <nav style={{ display: 'flex', gap: '1rem', alignItems: 'center', padding: '0.5rem 1rem', borderBottom: '1px solid #ddd' }}>
-      <div style={{ fontWeight: 'bold' }}>Monitoria</div>
-      <div style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem' }}>
-        <button onClick={onHome}>Home</button>
-        {isLoggedIn && <button onClick={onLogout}>Logout</button>}
-      </div>
-    </nav>
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton
+          size="large" edge="start" color="inherit" aria-label="menu"
+          sx={{ mr: 2 }} component={RouterLink} to="/"
+        >
+          <MonitorHeartIcon />
+        </IconButton>
+
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          Monitoria App
+        </Typography>
+
+        <Box>
+          <Button color="inherit" component={RouterLink} to="/">
+            Home
+          </Button>
+
+          {/* --- A LÓGICA AGORA É REAL! --- */}
+          {isLoggedIn ? (
+            <Button 
+              color="secondary" // Cor forte (vermelho)
+              variant="contained" 
+              onClick={logout} // Função de logout do Contexto
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button 
+              color="inherit" 
+              variant="outlined" 
+              component={RouterLink} 
+              to="/login"
+            >
+              Login
+            </Button>
+          )}
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 }

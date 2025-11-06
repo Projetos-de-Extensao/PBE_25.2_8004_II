@@ -1,10 +1,12 @@
+// Em src/pages/AlunoDashboard.jsx
 import React from 'react';
+import { Typography, Paper } from '@mui/material';
 
 export default function AlunoDashboard() {
   return (
-    <div>
-      <h2>Aluno Dashboard</h2>
-      <p>Área do aluno — conteúdo a implementar.</p>
-    </div>
+    <Paper sx={{ padding: 2 }}>
+      <Typography variant="h4">Dashboard do Aluno</Typography>
+      <Typography>Aqui o aluno verá suas candidaturas e vagas.</Typography>
+    </Paper>
   );
 }
