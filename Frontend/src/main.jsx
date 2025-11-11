@@ -1,69 +1,46 @@
-// Em src/main.jsx
+// src/main.jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { ToastContainer } from 'react-toastify';
-
-
-// Importe o CSS do react-toastify
-import 'react-toastify/dist/ReactToastify.css';
-
-// --- IMPORTAÇÃO NECESSÁRIA (DO PASSO 1) ---
-import { AuthProvider } from './context/AuthContext.jsx'; 
-
-// 1. Defina seu tema (cores, fontes, etc.)
-// (Seu código original, está perfeito)
+// Paleta Ibmec (aprox.): azul marinho + “pontinho” amarelo
 const theme = createTheme({
   palette: {
-    // Define o "azul" como cor primária
-    primary: {
-      main: '#1976d2', // Um azul forte e acessível
-      contrastText: '#ffffff', // Texto dos botões primários será branco
-    },
-    // Define o "vermelho/rosa" como secundário (ex: botões de delete, alertas)
-    secondary: {
-      main: '#dc004e',
-      contrastText: '#ffffff',
-    },
-    // Um fundo cinza claro para a página, para dar contraste
-    background: {
-      default: '#f4f6f8',
-    },
+    primary: { main: "#13294B", contrastText: "#ffffff" }, // azul Ibmec
+    secondary: { main: "#FDB913", contrastText: "#13294B" }, // amarelo Ibmec
+    background: { default: "#ffffff", paper: "#ffffff" }, // fundo branco
+    error: { main: "#D32F2F" }, // para o botão Logout
   },
   typography: {
-    fontFamily: 'Roboto, Arial, sans-serif',
+    fontFamily: "Roboto, Arial, sans-serif",
+    h3: { fontWeight: 700 },
+    h4: { fontWeight: 700 },
+  },
+  components: {
+    MuiButton: {
+      defaultProps: { disableElevation: true },
+      styleOverrides: { root: { textTransform: "none", borderRadius: 10 } },
+    },
+    MuiPaper: {
+      styleOverrides: { root: { borderRadius: 12 } },
+    },
   },
 });
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* 2. O Roteador "envolve" tudo */}
     <BrowserRouter>
-      {/* 3. O Tema do MUI "envolve" tudo */}
       <ThemeProvider theme={theme}>
-        {/* --- AQUI ESTÁ A MUDANÇA (PASSO 2) --- */}
-        {/* O AuthProvider "envolve" o App para dar acesso ao contexto */}
         <AuthProvider>
-          <CssBaseline /> {/* 4. Normaliza o CSS (dentro do AuthProvider) */}
-          <App /> {/* Nosso App principal */}
-          
-          {/* 5. O contêiner das notificações de erro/sucesso */}
-          <ToastContainer
-            position="top-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-          />
+          <CssBaseline />
+          <App />
+          <ToastContainer position="top-right" autoClose={3000} theme="colored" />
         </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>

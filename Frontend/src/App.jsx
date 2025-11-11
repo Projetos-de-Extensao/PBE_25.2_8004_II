@@ -1,53 +1,41 @@
-// Em src/App.jsx
+import { Routes, Route } from "react-router-dom";
+import { Container, Toolbar } from "@mui/material";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import AlunoDashboard from "./pages/AlunoDashboard";
+import ProfessorDashboard from "./pages/ProfessorDashboard";
+import Navbar from "./components/Navbar";
 
-import { Routes, Route } from 'react-router-dom';
-import { Container } from '@mui/material';
-
-// ... (imports) ...
-import ProtectedRoute from './components/ProtectedRoute';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import AlunoDashboard from './pages/AlunoDashboard';
-import ProfessorDashboard from './pages/ProfessorDashboard';
-import Navbar from './components/Navbar';
-
-function App() {
+export default function App() {
   return (
     <>
-      <Navbar /> 
-      <Container sx={{ marginTop: '2rem' }}>
+      <Navbar />
+      {/* Use este Toolbar como espaçador SE o AppBar estiver position="fixed" */}
+      <Toolbar sx={{ mb: 2 }} />
+      <Container sx={{ pb: 6 }}>
         <Routes>
-          {/* --- ROTAS PÚBLICAS --- */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          
-          {/* --- ROTAS PROTEGIDAS (com Papéis) --- */}
-          <Route 
-            path="/dashboard/aluno" 
+
+          <Route
+            path="/dashboard/aluno"
             element={
-              // --- MUDANÇA: Define papéis permitidos ---
-              <ProtectedRoute allowedRoles={['aluno']}>
+              <ProtectedRoute allowedRoles={["aluno"]}>
                 <AlunoDashboard />
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/dashboard/professor" 
+          <Route
+            path="/dashboard/professor"
             element={
-              // --- MUDANÇA: Define papéis permitidos ---
-              <ProtectedRoute allowedRoles={['professor']}>
+              <ProtectedRoute allowedRoles={["professor"]}>
                 <ProfessorDashboard />
               </ProtectedRoute>
-            } 
+            }
           />
-          
-          {/* (Podemos adicionar uma rota protegida genérica,
-             ex: /perfil, que serve para ambos) */}
-
         </Routes>
       </Container>
     </>
   );
 }
-
-export default App;
