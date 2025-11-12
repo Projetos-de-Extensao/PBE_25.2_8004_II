@@ -1,12 +1,23 @@
-// Em src/pages/AlunoDashboard.jsx
-import React from 'react';
-import { Typography, Paper } from '@mui/material';
+import React from "react";
+import { Typography, Paper, Stack, Divider } from "@mui/material";
+import DefaultLayout from "../layouts/DefaultLayout";
 
 export default function AlunoDashboard() {
   return (
-    <Paper sx={{ padding: 2 }}>
-      <Typography variant="h4">Dashboard do Aluno</Typography>
-      <Typography>Aqui o aluno verá suas candidaturas e vagas.</Typography>
-    </Paper>
+    <DefaultLayout>
+      <Paper sx={{ p: 3 }}>
+        <Typography variant="h4" gutterBottom>
+          Dashboard do Aluno
+        </Typography>
+        <Typography color="text.secondary" gutterBottom>
+          Aqui você verá suas candidaturas e vagas recomendadas.
+        </Typography>
+        <Divider sx={{ my: 2 }} />
+        <Stack spacing={2}>
+          <Typography>— Candidaturas recentes</Typography>
+          <Typography>— Vagas em destaque</Typography>
+        </Stack>
+      </Paper>
+    </DefaultLayout>
   );
 }

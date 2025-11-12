@@ -1,50 +1,61 @@
-// Em src/components/Navbar.jsx
+import React from "react";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Box,
+  IconButton,
+} from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
+import { useAuth } from "../context/AuthContext";
 
-import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Box, IconButton } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
-import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
-
-// --- IMPORTAMOS O NOSSO HOOK ---
-import { useAuth } from '../context/AuthContext';
-
-export default function Navbar() {
-  // --- USAMOS O CONTEXTO ---
-  const { isLoggedIn, logout } = useAuth(); // Pegamos o estado REAL
+export default function Navbar({ position = "fixed" }) {
+  const { isLoggedIn, logout } = useAuth();
 
   return (
-    <AppBar position="static">
+    <AppBar position={position} color="primary" elevation={3}>
       <Toolbar>
         <IconButton
-          size="large" edge="start" color="inherit" aria-label="menu"
-          sx={{ mr: 2 }} component={RouterLink} to="/"
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="home"
+          sx={{ mr: 2 }}
+          component={RouterLink}
+          to="/"
         >
           <MonitorHeartIcon />
         </IconButton>
 
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 600 }}>
           Monitoria App
         </Typography>
 
-        <Box>
+        <Box sx={{ display: "flex", gap: 1 }}>
           <Button color="inherit" component={RouterLink} to="/">
             Home
           </Button>
 
-          {/* --- A LÓGICA AGORA É REAL! --- */}
           {isLoggedIn ? (
-            <Button 
-              color="secondary" // Cor forte (vermelho)
-              variant="contained" 
-              onClick={logout} // Função de logout do Contexto
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={logout}
+              sx={{
+                fontWeight: 700,
+                borderWidth: 2,
+                ":hover": { borderWidth: 2 },
+              }}
             >
               Logout
             </Button>
           ) : (
-            <Button 
-              color="inherit" 
-              variant="outlined" 
-              component={RouterLink} 
+            <Button
+              color="inherit"
+              variant="outlined"
+              component={RouterLink}
               to="/login"
             >
               Login
