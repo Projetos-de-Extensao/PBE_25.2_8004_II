@@ -1,68 +1,59 @@
-import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Box,
-  IconButton,
-} from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
-import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
-import { useAuth } from "../context/AuthContext";
+import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import logo from "../assets/ibmec-logo.png";
 
-export default function Navbar({ position = "fixed" }) {
-  const { isLoggedIn, logout } = useAuth();
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  const toggle = () => setOpen((v) => !v);
+  const close = () => setOpen(false);
 
   return (
-    <AppBar position={position} color="primary" elevation={3}>
-      <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="home"
-          sx={{ mr: 2 }}
-          component={RouterLink}
+    <header className="site-header">
+      <div className="container header-wrap">
+        {/* Logo Ibmec -> Home */}
+        <Link
           to="/"
+          className="brand"
+          aria-label="Ir para Home"
+          onClick={close}
         >
-          <MonitorHeartIcon />
-        </IconButton>
+          <img src={logo} alt="Ibmec" className="brand-logo" />
+        </Link>
 
-        <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 600 }}>
-          Monitoria App
-        </Typography>
-
-        <Box sx={{ display: "flex", gap: 1 }}>
-          <Button color="inherit" component={RouterLink} to="/">
+        {/* Navegação */}
+        <nav className={`nav ${open ? "is-open" : ""}`}>
+          <NavLink to="/" className="nav-link" onClick={close} end>
             Home
-          </Button>
+          </NavLink>
 
-          {isLoggedIn ? (
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={logout}
-              sx={{
-                fontWeight: 700,
-                borderWidth: 2,
-                ":hover": { borderWidth: 2 },
-              }}
-            >
-              Logout
-            </Button>
-          ) : (
-            <Button
-              color="inherit"
-              variant="outlined"
-              component={RouterLink}
-              to="/login"
-            >
-              Login
-            </Button>
-          )}
-        </Box>
-      </Toolbar>
-    </AppBar>
+          <NavLink to="/login" className="nav-link" onClick={close}>
+            Aluno
+          </NavLink>
+
+          <NavLink
+            to="/login?role=professor"
+            className="nav-link"
+            onClick={close}
+          >
+            Professor
+          </NavLink>
+
+          <NavLink to="/admin-login" className="nav-link" onClick={close}>
+            Administração
+          </NavLink>
+        </nav>
+
+        {/* Botão mobile */}
+        <button
+          className="nav-toggle"
+          aria-label="Abrir menu"
+          aria-expanded={open ? "true" : "false"}
+          onClick={toggle}
+        >
+          ☰
+        </button>
+      </div>
+    </header>
   );
 }

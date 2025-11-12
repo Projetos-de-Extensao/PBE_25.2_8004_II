@@ -1,31 +1,30 @@
 import React from "react";
-import { Typography, Paper, Stack, Divider, Button } from "@mui/material";
-import DefaultLayout from "../layouts/DefaultLayout";
-import { Add } from "@mui/icons-material";
+import Navbar from "../components/Navbar";
 
 export default function ProfessorDashboard() {
   return (
-    <DefaultLayout>
-      <Paper sx={{ p: 3 }}>
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          alignItems={{ xs: "flex-start", sm: "center" }}
-          justifyContent="space-between"
-          spacing={2}
-        >
-          <Typography variant="h4">Dashboard do Professor</Typography>
-          <Button startIcon={<Add />} variant="contained">
-            Nova Vaga
-          </Button>
-        </Stack>
+    <>
+      <Navbar />
 
-        <Typography color="text.secondary" sx={{ mt: 1 }}>
-          Crie e gerencie suas vagas de monitoria.
-        </Typography>
-        <Divider sx={{ my: 2 }} />
+      <main className="container">
+        <section className="card">
+          <h1>Área do Professor</h1>
+          <p>
+            Aqui você poderá gerenciar vagas de monitoria, acompanhar alunos
+            inscritos e configurar atendimentos.
+          </p>
 
-        <Typography>— Minhas vagas</Typography>
-      </Paper>
-    </DefaultLayout>
+          <p style={{ marginTop: 16 }}>
+            (Depois a gente preenche com as funcionalidades reais do sistema.)
+          </p>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <div className="container">
+          <small>© 2025 PBE 25.2_8004_II — Professor</small>
+        </div>
+      </footer>
+    </>
   );
 }

@@ -1,23 +1,31 @@
 import React from "react";
-import { Typography, Paper, Stack, Divider } from "@mui/material";
-import DefaultLayout from "../layouts/DefaultLayout";
+import Navbar from "../components/Navbar";
 
 export default function AlunoDashboard() {
   return (
-    <DefaultLayout>
-      <Paper sx={{ p: 3 }}>
-        <Typography variant="h4" gutterBottom>
-          Dashboard do Aluno
-        </Typography>
-        <Typography color="text.secondary" gutterBottom>
-          Aqui você verá suas candidaturas e vagas recomendadas.
-        </Typography>
-        <Divider sx={{ my: 2 }} />
-        <Stack spacing={2}>
-          <Typography>— Candidaturas recentes</Typography>
-          <Typography>— Vagas em destaque</Typography>
-        </Stack>
-      </Paper>
-    </DefaultLayout>
+    <>
+      <Navbar />
+
+      <main className="container">
+        <section className="card">
+          <h1>Área do Aluno</h1>
+          <p>
+            Aqui você poderá visualizar vagas de monitoria, inscrições e
+            informações das turmas.
+          </p>
+
+          <p style={{ marginTop: 16 }}>
+            (Por enquanto é só um rascunho visual. Depois a gente coloca a
+            listagem real de monitorias aqui.)
+          </p>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <div className="container">
+          <small>© 2025 PBE 25.2_8004_II — Aluno</small>
+        </div>
+      </footer>
+    </>
   );
 }

@@ -1,38 +1,47 @@
 import React from "react";
-import { Typography, Paper, Box, Stack, Button, Container } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Box
-        sx={{
-          minHeight: "calc(100vh - 160px)", // afasta do header e centraliza
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Paper elevation={3} sx={{ p: { xs: 3, md: 5 }, borderRadius: 3, width: "100%" }}>
-          <Box textAlign="center">
-            <Typography variant="h3" component="h1" gutterBottom>
-              Bem-vindo ao Portal de Monitoria
-            </Typography>
-            <Typography variant="h6" color="text.secondary" gutterBottom>
-              Acesse vagas, acompanhe candidaturas e gerencie oportunidades.
-            </Typography>
+    <>
+      <Navbar />
 
-            <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 3 }}>
-              <Button component={RouterLink} to="/login?as=aluno" variant="contained">
-                Acessar como Aluno
-              </Button>
-              <Button component={RouterLink} to="/login?as=professor" variant="outlined">
-                Acessar como Professor
-              </Button>
-            </Stack>
-          </Box>
-        </Paper>
-      </Box>
-    </Container>
+      <main className="container">
+        <section className="card">
+          <h1>Plataforma de Monitoria</h1>
+          <p>
+            Acesse como <strong>Aluno</strong>, <strong>Professor</strong> ou
+            <strong> Administração</strong> para gerenciar monitorias, turmas e
+            atendimentos.
+          </p>
+
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 12,
+              marginTop: 12,
+            }}
+          >
+            <Link className="btn" to="/login">
+              Acessar Aluno
+            </Link>
+            <Link className="btn" to="/login?role=professor">
+              Acessar Professor
+            </Link>
+            <Link className="btn btn-outline" to="/admin-login">
+              Acessar Administração
+            </Link>
+          </div>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <div className="container">
+          <small>© 2025 PBE 25.2_8004_II — Projeto acadêmico Ibmec</small>
+        </div>
+      </footer>
+    </>
   );
 }
