@@ -1,41 +1,35 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Container, Toolbar } from "@mui/material";
-import ProtectedRoute from "./components/ProtectedRoute";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import AlunoDashboard from "./pages/AlunoDashboard";
-import ProfessorDashboard from "./pages/ProfessorDashboard";
-import Navbar from "./components/Navbar";
+
+import "./App.css";
+
+import Home from "./pages/Home.jsx";
+import Login from "./pages/Login.jsx";
+import AlunoDashboard from "./pages/AlunoDashboard.jsx";
+import ProfessorDashboard from "./pages/ProfessorDashboard.jsx";
+import AdminLogin from "./pages/AdminLogin.jsx";
 
 export default function App() {
   return (
-    <>
-      <Navbar />
-      {/* Use este Toolbar como espaçador SE o AppBar estiver position="fixed" */}
-      <Toolbar sx={{ mb: 2 }} />
-      <Container sx={{ pb: 6 }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+    <Routes>
+      {/* Rotas públicas */}
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/admin-login" element={<AdminLogin />} />
 
-          <Route
-            path="/dashboard/aluno"
-            element={
-              <ProtectedRoute allowedRoles={["aluno"]}>
-                <AlunoDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/professor"
-            element={
-              <ProtectedRoute allowedRoles={["professor"]}>
-                <ProfessorDashboard />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </Container>
-    </>
+      {/* Rotas pós-login (ajusta depois se tiver ProtectedRoute) */}
+      <Route path="/aluno" element={<AlunoDashboard />} />
+      <Route path="/professor" element={<ProfessorDashboard />} />
+
+      {/* 404 */}
+      <Route
+        path="*"
+        element={
+          <div style={{ padding: "30px", fontSize: "20px" }}>
+            Página não encontrada
+          </div>
+        }
+      />
+    </Routes>
   );
 }

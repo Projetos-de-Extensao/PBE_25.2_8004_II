@@ -1,42 +1,196 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root{
+  --bg:#ffffff;
+  --text:#0b2545;
+  --muted:#5c6b80;
+  --primary:#0b2545;
+  --primary-contrast:#ffffff;
+  --outline:#d9e1ec;
+  --container:1100px;
+
+  --h-height: 82px;
+  --nav-font: 1.06rem;
+  --brand-height: 38px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Arial, "Noto Sans", sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  line-height:1.5;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Container */
+.container{
+  width:100%;
+  max-width:var(--container);
+  margin-inline:auto;
+  padding:0 20px;
+}
+
+/* Header */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background:#fff;
+  border-bottom:1px solid var(--outline);
+  height: var(--h-height);
+  box-shadow: 0 2px 10px rgba(0,0,0,.03);
+}
+.header-wrap{
+  height: var(--h-height);
+  display:flex;
+  align-items:center;
+  gap: 20px;
+}
+
+.brand{
+  display:inline-flex;
+  align-items:center;
+  text-decoration:none;
+}
+.brand-logo{
+  height: var(--brand-height);
+  width:auto;
+  display:block;
+}
+
+/* Nav */
+.nav{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+.nav-link{
+  text-decoration:none;
+  color:var(--text);
+  font-weight:700;
+  font-size: var(--nav-font);
+  padding:8px 12px;
+  border-radius:10px;
+  transition: background .12s ease, transform .12s ease;
+}
+.nav-link:hover{ background:#f4f7fb }
+.nav-link.active{ background:#eef3fb }
+
+.nav-toggle{
+  display:none;
+  margin-left:8px;
+  font-size:1.5rem;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+}
+
+/* Conteúdo */
+main{
+  padding: 32px 0 48px;
+}
+h1{
+  margin:0 0 10px;
+  font-size:1.9rem;
+}
+p{
+  color: var(--muted);
+}
+
+/* Cards */
+.card{
+  background:#fff;
+  border:1px solid var(--outline);
+  border-radius:18px;
+  padding:28px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+.card-narrow{
+  max-width:520px;
+  margin:0 auto;
+}
+
+/* Botões */
+.btn{
+  appearance:none;
+  border:none;
+  background:var(--primary);
+  color:var(--primary-contrast);
+  padding:12px 18px;
+  border-radius:12px;
+  font-weight:800;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 6px 16px rgba(11,37,69,.18);
+  transition: transform .12s ease, opacity .12s ease, box-shadow .12s ease;
+}
+.btn:hover{
+  transform: translateY(-1px);
+}
+.btn-outline{
+  background:#fff;
+  color:var(--primary);
+  border:2px solid var(--primary);
+  box-shadow:none;
+}
+
+/* Formulários */
+.form{
+  display:grid;
+  gap:16px;
+}
+.form-field{
+  display:grid;
+  gap:6px;
+}
+label{
+  font-weight:700;
+}
+input{
+  width:100%;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid var(--outline);
+  outline:none;
+  font-size:1rem;
+}
+input:focus-visible{
+  border-color:#96b7ff;
+  box-shadow:0 0 0 3px #e6efff;
+}
+
+/* Footer */
+.site-footer{
+  border-top:1px solid var(--outline);
+  padding:18px 0;
+  background:#fff;
+}
+
+/* Responsivo */
+@media (max-width: 880px){
+  :root{
+    --h-height:76px;
+    --nav-font:1rem;
+    --brand-height:34px;
   }
-  to {
-    transform: rotate(360deg);
+  .nav{
+    display:none;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  .nav.is-open{
+    display:flex;
+    position:absolute;
+    top:var(--h-height);
+    right:0;
+    left:0;
+    padding:10px 20px;
+    background:#fff;
+    border-bottom:1px solid var(--outline);
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  .nav-toggle{
+    display:inline-block;
+  }
 }
