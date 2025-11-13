@@ -13,4 +13,5 @@ router.register(r'inscricoes', views.InscricaoViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('', views.home, name='home'),
 ]
