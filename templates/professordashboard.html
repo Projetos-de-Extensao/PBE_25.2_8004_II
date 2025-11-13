@@ -3,45 +3,110 @@
 
 {% block title %}Dashboard do Professor{% endblock %}
 
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'professordashboard.css' %}">
+{% endblock %}
+
+
 {% block content %}
-<div class="container">
+<div class="container mt-4">
   <h1>Bem-vindo, Prof. {{ usuario.get_full_name|default:usuario.username }}!</h1>
   <h2>Área do Professor</h2>
 
-  <section class="suas-vagas">
-    <h3>Suas Vagas criadas</h3>
-    {% if suas_vagas %}
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Título</th>
-            <th>Inscrições</th>
-            <th>Status</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for vaga in suas_vagas %}
-          <tr>
-            <td>{{ vaga.titulo }}</td>
-            <td>{{ vaga.candidaturas.count }}</td>
-            <td>{{ vaga.statusvaga }}</td>
-            <td>
-              <a href="{% url 'editar_vaga' vaga.pk %}" class="btn btn-secondary btn-sm">Editar</a>
-              <a href="{% url 'ver_vaga' vaga.pk %}" class="btn btn-primary btn-sm">Ver</a>
-            </td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <section class="nova-vaga my-4">
+    <a href="{% url 'criar_vaga' %}" class="btn btn-success btn-lg">
+      + Criar Nova Vaga
+    </a>
+  </section>
+
+  <hr>
+
+  <section class="suas-vagas mt-4">
+    <h3>Gerenciamento de Vagas Criadas</h3>
+    
+    {% if vagas %}
+      
+      {% for vaga in vagas %}
+        <div class="card shadow-sm mb-4">
+          
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">{{ vaga.nome }}</h4>
+            <span class="badge 
+              {% if vaga.statusvaga == 'aberta' %} bg-success
+              {% else %} bg-secondary
+              {% endif %}" style="font-size: 0.9rem;">
+              {{ vaga.get_statusvaga_display|default:vaga.statusvaga }}
+            </span>
+          </div>
+
+          <div class="card-body">
+            <h5 class="card-title">Candidaturas Recebidas ({{ vaga.candidaturas.count }})</h5>
+            
+            {% if vaga.candidaturas.all %}
+              <ul class="list-group">
+                
+                {% for cand in vaga.candidaturas.all %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    
+                    <div>
+                      <strong>{{ cand.aluno.user.get_full_name|default:cand.aluno.user.username }}</strong>
+                      <br>
+                      <small class="text-muted">
+                        Curso: {{ cand.aluno.curso }} | 
+                        CR: {{ cand.aluno.crgeral }} | 
+                        Período: {{ cand.aluno.periodo }}
+                      </small>
+                    </div>
+
+                    <div>
+                      {% if cand.status == 'pendente' %}
+                        <form action="{% url 'gerenciar_candidatura' %}" method="POST" style="display: inline;">
+                          {% csrf_token %}
+                          <input type="hidden" name="candidatura_id" value="{{ cand.id }}">
+                          <input type="hidden" name="acao" value="aprovar">
+                          <button type="submit" class="btn btn-sm btn-success">Aceitar</button>
+                        </form>
+                        
+                        <form action="{% url 'gerenciar_candidatura' %}" method="POST" style="display: inline;">
+                          {% csrf_token %}
+                          <input type="hidden" name="candidatura_id" value="{{ cand.id }}">
+                          <input type="hidden" name="acao" value="rejeitar">
+                          <button type="submit" class="btn btn-sm btn-danger">Recusar</button>
+                        </form>
+
+                      {% else %}
+                        <span class="badge 
+                          {% if cand.status == 'aprovada' %} bg-primary
+                          {% else %} bg-secondary
+                          {% endif %}" style="font-size: 0.85rem;">
+                          {{ cand.get_status_display }}
+                        </span>
+                      {% endif %}
+                    </div>
+
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="text-muted">Nenhuma candidatura recebida para esta vaga ainda.</p>
+            {% endif %}
+            
+          </div>
+        </div>
+      {% endfor %}
+
     {% else %}
       <p>Você ainda não criou nenhuma vaga.</p>
     {% endif %}
-  </section>
-
-  <section class="nova-vaga mt-4">
-    <h3>Criar nova vaga</h3>
-    <a href="{% url 'criar_vaga' %}" class="btn btn-success">Nova Vaga</a>
   </section>
 </div>
 {% endblock %}

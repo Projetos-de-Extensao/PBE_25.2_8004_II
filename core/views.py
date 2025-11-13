@@ -1,12 +1,15 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
-from .models import Professor, Aluno, Disciplina, Vaga, Candidatura, RegistroMonitoria, Inscricao
+from .models import Professor, Aluno, Disciplina, Vaga, Candidatura, RegistroMonitoria, Inscricao 
 from .serializers import (
     ProfessorSerializer, AlunoSerializer, DisciplinaSerializer,
     VagaSerializer, CandidaturaSerializer, RegistroMonitoriaSerializer,
     InscricaoSerializer, MyTokenObtainPairSerializer
 )
 from .permissions import IsProfessor, IsAluno
+from django.contrib import messages
+from django.views.decorators.http import require_POST
+from .models import Candidatura # Importe Candidatura
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 # --- API ViewSets ---
@@ -72,30 +75,59 @@ def home(request):
     return render(request, 'home.html', contexto)
 
 def login_view(request):
+    erro = None
     if request.method == 'POST':
         username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
+        senha = request.POST.get('senha')
+        user = authenticate(request, username=username, password=senha)
+
+        # Checagem de segurança em DUAS etapas:
+        # 1. O usuário existe?
+        # 2. Ele TEM o perfil de aluno?
+        if user is not None and hasattr(user, 'aluno_profile'):
             login(request, user)
-            # Redireciona conforme o perfil do usuário
-            if hasattr(user, 'aluno_profile'):
-                return redirect('dashboard_aluno')
-            else:
-                return redirect('home')
+            return redirect('dashboard_aluno')
         else:
-            contexto = {'erro': 'Usuário ou senha inválidos'}
-            return render(request, 'login.html', contexto)
-    return render(request, 'login.html')
+            # Se o usuário não existe OU não é um aluno, mostre erro
+            erro = 'Usuário ou senha inválidos, ou usuário não é um aluno.'
+
+    contexto = {'erro': erro}
+    return render(request, 'login.html', contexto)
 
 @login_required
 def dashboard_aluno(request):
-    contexto = {'usuario': request.user}
+    # Busca todas as vagas que estão com status 'aberta'
+    vagas_abertas = Vaga.objects.filter(statusvaga='aberta').order_by('-id')
+    
+    # Busca todas as candidaturas feitas pelo aluno logado
+    minhas_candidaturas = []
+    if hasattr(request.user, 'aluno_profile'):
+        minhas_candidaturas = Candidatura.objects.filter(aluno=request.user.aluno_profile).order_by('-data_candidatura')
+
+    contexto = {
+        'usuario': request.user,
+        'vagas_abertas': vagas_abertas,
+        'minhas_candidaturas': minhas_candidaturas
+    }
     return render(request, 'alunodashboard.html', contexto)
 
 @login_required
 def dashboard_professor(request):
-    contexto = {'usuario': request.user}
+    try:
+        # Otimização: Usamos .prefetch_related para buscar as candidaturas
+        # e os alunos associados de uma só vez.
+        minhas_vagas = Vaga.objects.filter(
+            professor=request.user.professor_profile
+        ).prefetch_related(
+            'candidaturas', 'candidaturas__aluno', 'candidaturas__aluno__user'
+        ).order_by('-id')
+    except AttributeError:
+        minhas_vagas = []
+
+    contexto = {
+        'usuario': request.user,
+        'vagas': minhas_vagas
+    }
     return render(request, 'professordashboard.html', contexto)
 
 def logout_view(request):
@@ -107,15 +139,31 @@ def criar_vaga(request):
         titulo = request.POST.get('titulo')
         descricao = request.POST.get('descricao')
         disciplina_id = request.POST.get('disciplina')
-        disciplina = Disciplina.objects.get(id=disciplina_id)
-        Vaga.objects.create(
-            titulo=titulo,
-            descricao=descricao,
-            disciplina=disciplina,
-            professor=request.user.professor_profile,
-            statusvaga='aberta'
-        )
-        return redirect('dashboard_professor')
+        statusvaga = request.POST.get('statusvaga')
+        crminimo = request.POST.get('crminimo')
+        erro = None
+        if not (titulo and descricao and disciplina_id and statusvaga):
+            erro = 'Preencha todos os campos.'
+        else:
+            try:
+                cr_final = crminimo if crminimo else None
+                disciplina = Disciplina.objects.get(id=disciplina_id)
+                Vaga.objects.create(
+                    nome=titulo,
+                    descricao=descricao,
+                    disciplina=disciplina,
+                    professor=request.user.professor_profile,
+                    crminimo=cr_final,
+                    statusvaga=statusvaga
+                )
+                return redirect('dashboard_professor')
+            except Disciplina.DoesNotExist:
+                erro = 'Disciplina inválida.'
+            except ValueError:
+                erro = 'O valor do CR Mínimo deve ser um número.'
+        disciplinas = Disciplina.objects.all()
+        contexto = {'disciplinas': disciplinas, 'erro': erro}
+        return render(request, 'criar_vaga.html', contexto)
     else:
         disciplinas = Disciplina.objects.all()
         contexto = {'disciplinas': disciplinas}
@@ -135,5 +183,74 @@ def login_professor_view(request):
             erro = 'E-mail ou senha inválidos, ou usuário não é professor.'
     return render(request, 'login_professor.html', {'erro': erro})
 
-def login_aluno(request):
-    return render(request, 'login.html')
+@login_required
+def inscrever_vaga(request):
+    if request.method == 'POST':
+        # Verifica se quem está se inscrevendo é mesmo um aluno
+        if not hasattr(request.user, 'aluno_profile'):
+            messages.error(request, 'Você precisa ser um aluno para se inscrever.')
+            return redirect('dashboard_aluno')
+
+        vaga_id = request.POST.get('vaga_id')
+        try:
+            vaga = Vaga.objects.get(id=vaga_id)
+            aluno = request.user.aluno_profile
+
+            # Verifica se o aluno já se inscreveu (graças ao unique_together)
+            ja_inscrito = Candidatura.objects.filter(aluno=aluno, vaga=vaga).exists()
+            
+            if ja_inscrito:
+                messages.warning(request, 'Você já se inscreveu nesta vaga.')
+            else:
+                # Cria a candidatura! O status 'pendente' é o default.
+                Candidatura.objects.create(aluno=aluno, vaga=vaga)
+                messages.success(request, f'Inscrição para "{vaga.nome}" realizada com sucesso!')
+
+        except Vaga.DoesNotExist:
+            messages.error(request, 'Vaga não encontrada.')
+        except Exception as e:
+            messages.error(request, f'Ocorreu um erro: {e}')
+    
+    # Se não for POST ou se terminar, volta ao dashboard do aluno
+    return redirect('dashboard_aluno')
+
+# Em core/views.py
+
+@login_required
+@require_POST # Garante que esta view só aceita requisições POST
+def gerenciar_candidatura(request):
+    candidatura_id = request.POST.get('candidatura_id')
+    acao = request.POST.get('acao') # 'aprovar' ou 'rejeitar'
+
+    if not (candidatura_id and acao in ['aprovar', 'rejeitar']):
+        messages.error(request, 'Ação inválida.')
+        return redirect('dashboard_professor')
+
+    try:
+        # Verificação de segurança: Busca a candidatura E
+        # garante que ela pertence a uma vaga do professor logado.
+        candidatura = Candidatura.objects.get(
+            id=candidatura_id,
+            vaga__professor=request.user.professor_profile
+        )
+        
+        if candidatura.status != 'pendente':
+            messages.warning(request, 'Esta candidatura já foi processada.')
+            return redirect('dashboard_professor')
+
+        if acao == 'aprovar':
+            candidatura.status = 'aprovada'
+            candidatura.save()
+            messages.success(request, f"Candidatura de {candidatura.aluno.user.get_full_name()} foi APROVADA.")
+        
+        elif acao == 'rejeitar':
+            candidatura.status = 'rejeitada'
+            candidatura.save()
+            messages.success(request, f"Candidatura de {candidatura.aluno.user.get_full_name()} foi REJEITADA.")
+
+    except Candidatura.DoesNotExist:
+        messages.error(request, 'Candidatura não encontrada ou você não tem permissão.')
+    except Exception as e:
+        messages.error(request, f'Ocorreu um erro: {e}')
+
+    return redirect('dashboard_professor')

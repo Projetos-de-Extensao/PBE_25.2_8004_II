@@ -1,3 +1,7 @@
+/* ================================== */
+/* CSS DASHBOARD PROFESSOR (CARDS) */
+/* ================================== */
+
 body {
   font-family: 'Inter', sans-serif;
   background-color: #f5f6fa;
@@ -9,10 +13,8 @@ body {
 .container {
   max-width: 1100px;
   margin: 40px auto;
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 14px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  /* Removido o background branco para que os cards se destaquem */
+  padding: 0; 
 }
 
 h1 {
@@ -21,39 +23,86 @@ h1 {
   color: #003366;
   border-left: 6px solid #E6B800;
   padding-left: 12px;
+  margin-bottom: 30px; /* Adiciona espaço antes do botão */
 }
 
 h2, h3 {
   color: #003366;
   margin-top: 25px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
+/* ============================ */
+/* ESTILOS DOS CARDS (NOVO) */
+/* ============================ */
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px; /* Seu border-radius */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sua sombra */
+  margin-bottom: 30px; /* Espaço entre os cards de vaga */
+  overflow: hidden; /* Garante que o header não vaze */
 }
 
-.table th, .table td {
-  padding: 12px 15px;
-  border-bottom: 1px solid #e5e5e5;
-  text-align: left;
-}
-
-.table th {
-  background-color: #003366;
+.card-header {
+  background-color: #003366; /* Sua cor primária */
   color: #ffffff;
-  font-weight: 500;
+  padding: 15px 25px;
+  border-bottom: 1px solid #003366;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.table tr:nth-child(even) {
-  background-color: #f9fafb;
+.card-header h4 {
+  margin: 0;
+  font-size: 1.4rem;
 }
 
-.table tr:hover {
-  background-color: #eaf0f8;
+.card-body {
+  padding: 20px 25px;
 }
+
+.card-body h5 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* ============================ */
+/* ESTILOS DA LISTA (NOVO) */
+/* ============================ */
+
+.list-group {
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.list-group-item {
+  /* ESTA É A MÁGICA: ativa o flexbox */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  padding: 15px 0; /* Mais espaçado */
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Remove a borda do último item */
+.list-group-item:last-child {
+  border-bottom: none;
+}
+
+/* Informações do Aluno */
+.list-group-item small {
+  color: #555;
+  font-size: 0.85rem;
+}
+
+/* ============================ */
+/* BOTÕES (SEU ESTILO + FIX) */
+/* ============================ */
 
 .btn {
   display: inline-block;
@@ -62,54 +111,95 @@ h2, h3 {
   text-decoration: none;
   border-radius: 6px;
   transition: 0.3s;
+  cursor: pointer; /* Adicionado para formulários */
+  border: none; /* Adicionado para botões de formulário */
+}
+
+/* FIX: BOTÕES "COLADOS" E "SOBREPOSTOS" */
+.list-group-item form {
+  display: inline-block; /* Faz os botões ficarem na mesma linha */
+}
+.list-group-item form:first-of-type {
+  margin-right: 8px; /* Adiciona espaço ENTRE os botões */
 }
 
 .btn-primary {
   background-color: #003366;
   color: #ffffff;
 }
-
 .btn-primary:hover {
   background-color: #004080;
 }
 
-.btn-secondary {
-  background-color: #E6B800;
-  color: #003366;
-}
-
-.btn-secondary:hover {
-  background-color: #FFD633;
-  color: #002244;
-}
-
+/* Botão de Aceitar */
 .btn-success {
+  background-color: #28a745; /* Verde para "Aceitar" */
+  color: #ffffff;
+}
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* Botão de Recusar */
+.btn-danger {
+  background-color: #dc3545; /* Vermelho para "Recusar" */
+  color: #ffffff;
+}
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Botão "Criar Nova Vaga" */
+.btn-success.btn-lg {
   background-color: #003366;
   color: #ffffff;
   border: 2px solid #E6B800;
+  font-size: 1.1rem;
+  padding: 12px 20px;
 }
-
-.btn-success:hover {
+.btn-success.btn-lg:hover {
   background-color: #E6B800;
   color: #003366;
 }
 
-.table td a {
-  margin-right: 5px;
+/* Badges de Status (Aprovado, Rejeitado) */
+.badge {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.bg-primary {
+  background-color: #003366;
+  color: #fff;
+}
+.bg-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+.bg-success {
+  background-color: #28a745;
+  color: #fff;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
   .container {
     margin: 15px;
+    padding: 0;
+  }
+  .card-body, .card-header {
     padding: 15px;
   }
-
-  .table th, .table td {
-    padding: 8px;
-  }
-
   h1 {
     font-size: 1.5rem;
+  }
+  /* Empilha a lista em telas pequenas */
+  .list-group-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .list-group-item div:last-child {
+    margin-top: 10px; /* Espaço entre o nome e os botões */
   }
 }

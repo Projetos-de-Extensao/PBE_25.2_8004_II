@@ -63,6 +63,8 @@ class Vaga(models.Model):
     def __str__(self):
         return f"Vaga: {self.nome} ({self.disciplina.codigo})"
 
+# Em core/models.py
+
 class Candidatura(models.Model):
     # Relação: A candidatura é de UM aluno
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, related_name='candidaturas')
@@ -70,16 +72,31 @@ class Candidatura(models.Model):
     # Relação: A candidatura é para UMA vaga
     vaga = models.ForeignKey(Vaga, on_delete=models.CASCADE, related_name='candidaturas')
     
-    # O 'upload_to' salva os arquivos na pasta 'media/documentos/'
-    documento = models.FileField(upload_to='documentos/')
+    # --- MUDANÇA 1: TORNAR O DOCUMENTO OPCIONAL ---
+    # Adicione null=True, blank=True
+    documento = models.FileField(upload_to='documentos/', null=True, blank=True)
+    
     data_candidatura = models.DateTimeField(auto_now_add=True)
+
+    # --- MUDANÇA 2: ADICIONAR CAMPO DE STATUS ---
+    STATUS_CHOICES = (
+        ('pendente', 'Pendente'),
+        ('aprovada', 'Aprovada'),
+        ('rejeitada', 'Rejeitada'),
+    )
+    status = models.CharField(
+        max_length=20, 
+        choices=STATUS_CHOICES, 
+        default='pendente'  # A lógica que você pediu!
+    )
 
     class Meta:
         # Garante que um aluno só pode se candidatar uma vez por vaga
         unique_together = ('aluno', 'vaga')
 
     def __str__(self):
-        return f"Candidatura de {self.aluno.user.username} para {self.vaga.nome}"
+        # Atualiza o __str__ para incluir o status
+        return f"Candidatura de {self.aluno.user.username} para {self.vaga.nome} ({self.get_status_display()})"
 
 class RegistroMonitoria(models.Model):
     # Relação: O registro é de UM aluno

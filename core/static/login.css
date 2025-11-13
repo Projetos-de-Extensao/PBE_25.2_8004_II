@@ -1,9 +1,9 @@
 /* =============================== */
-/*   LOGIN DO ALUNO – VISUAL LIMPO */
+/* LOGIN DO ALUNO – VISUAL LIMPO */
 /* =============================== */
 
 :root {
-  --cor-primaria: #0b2545;       /* azul ibmec */
+  --cor-primaria: #0b2545;      /* azul ibmec */
   --cor-texto: #0b2545;
   --cor-muted: #5c6b80;
   --cor-borda: #d9e1ec;
@@ -16,6 +16,11 @@
 /* Centralização da página */
 body {
   background: #f3f5fa;
+  display: flex;
+  align-items: center;    /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+  min-height: 100vh;      /* Garante que o body ocupe a tela toda */
+  margin: 0;              /* Remove margens padrão do navegador */
 }
 
 /* Card principal */
