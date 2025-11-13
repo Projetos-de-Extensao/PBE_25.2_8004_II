@@ -122,3 +122,9 @@ def criar_vaga(request):
         disciplinas = Disciplina.objects.all()
         contexto = {'disciplinas': disciplinas}
         return render(request, 'criar_vaga.html', contexto)
+    
+def login_professor(request):
+    return render(request, 'login_professor.html')
+
+def login_aluno(request):
+    return render(request, 'login_aluno.html')

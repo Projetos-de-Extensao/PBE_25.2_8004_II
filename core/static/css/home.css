@@ -1,0 +1,121 @@
+.home-hero {
+  padding: 72px 0 48px;
+  text-align: center;
+}
+
+.home-hero-logo {
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+.home-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #0b2545; /* azul mais sóbrio */
+  margin-bottom: 8px;
+}
+
+.home-subtitle {
+  font-size: 1.05rem;
+  color: #5c6b80;
+  max-width: 680px;
+  margin: 0 auto 28px;
+}
+
+/* ===== BOTÕES PRINCIPAIS ===== */
+
+.home-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 20px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 0.98rem;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.1s ease;
+}
+
+/* Aluno: botão cheio escuro */
+.home-btn.btn-aluno {
+  background: #0b2545;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(11, 37, 69, 0.25);
+}
+
+.home-btn.btn-aluno:hover {
+  background: #081a30;
+  transform: translateY(-2px);
+}
+
+/* Professor: outline claro */
+.home-btn.btn-professor {
+  background: #ffffff;
+  color: #0b2545;
+  border: 2px solid #0b2545;
+}
+
+.home-btn.btn-professor:hover {
+  background: #f4f6fb;
+  transform: translateY(-2px);
+}
+
+/* Admin: destaque em amarelo/dourado */
+.home-btn.btn-admin {
+  background: #f6b800;
+  color: #0b2545;
+}
+
+.home-btn.btn-admin:hover {
+  background: #e4a800;
+  transform: translateY(-2px);
+}
+
+/* ===== RODAPÉ DA HOME ===== */
+
+.home-footer {
+  margin-top: 40px;
+  padding-bottom: 20px;
+  text-align: center;
+  color: #5c6b80;
+  font-size: 0.85rem;
+}
+
+/* ===== RESPONSIVO ===== */
+
+@media (max-width: 768px) {
+  .home-hero {
+    padding: 56px 0 36px;
+  }
+
+  .home-title {
+    font-size: 1.9rem;
+  }
+
+  .home-subtitle {
+    font-size: 0.96rem;
+    padding: 0 12px;
+  }
+
+  .home-actions {
+    gap: 10px;
+  }
+
+  .home-btn {
+    width: 100%;
+    max-width: 260px;
+  }
+}

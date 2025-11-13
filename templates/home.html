@@ -1,47 +1,111 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Home - PBE{% endblock %}
+{% block title %}Home — Plataforma de Monitoria{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6 text-center">
-      <h1 class="mb-4 fw-bold" style="font-size:2.5rem;">Bem-vindo ao PBE</h1>
-      {% if usuario %}
-        <div class="alert alert-success mb-4">Olá, {{ usuario.username }}!</div>
-      {% else %}
-        <a href="{% url 'login' %}" class="btn btn-primary mb-4">Entrar</a>
-      {% endif %}
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h2 class="h5 mb-3">Vagas abertas</h2>
-          <section id="vagas">
-            <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Carregando...</span></div>
-          </section>
-        </div>
-      </div>
-    </div>
+
+<style>
+  .home-hero {
+    padding: 70px 0 50px;
+    text-align: center;
+  }
+  .home-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #0b2545;
+  }
+  .home-subtitle {
+    font-size: 1.1rem;
+    color: #5c6b80;
+    max-width: 680px;
+    margin: 10px auto 28px;
+  }
+
+  .home-actions {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .home-btn {
+    padding: 12px 20px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.15s ease;
+  }
+  .btn-aluno {
+    background: #0b2545;
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(11,37,69,0.25);
+  }
+  .btn-aluno:hover {
+    background: #081a30;
+    transform: translateY(-2px);
+  }
+
+  .btn-professor {
+    background: #ffffff;
+    color: #0b2545;
+    border: 2px solid #0b2545;
+  }
+  .btn-professor:hover {
+    background: #f1f5ff;
+    transform: translateY(-2px);
+  }
+
+  .btn-admin {
+    background: #f6b800;
+    color: #0b2545;
+  }
+  .btn-admin:hover {
+    background: #e5a900;
+    transform: translateY(-2px);
+  }
+
+  .home-footer {
+    margin-top: 50px;
+    text-align: center;
+    color: #5c6b80;
+    font-size: 0.85rem;
+    padding-bottom: 20px;
+  }
+</style>
+
+
+<div class="container home-hero">
+
+  <img src="{% static 'img/ibmec-logo.png' %}" 
+       alt="Ibmec" 
+       style="height: 50px; margin-bottom: 20px;">
+
+  <h1 class="home-title">Plataforma de Monitoria</h1>
+
+  <p class="home-subtitle">
+    Bem-vindo à plataforma acadêmica de monitoria do Ibmec.<br>
+    Aqui você pode visualizar vagas, realizar inscrições e acompanhar todo o processo.
+  </p>
+
+  <div class="home-actions">
+
+    <a href="{% url 'login-aluno' %}" class="home-btn btn-aluno">
+      Acessar como Aluno
+    </a>
+
+    <a href="{% url 'login-professor' %}" class="home-btn btn-professor">
+      Acessar como Professor
+    </a>
+
   </div>
+
 </div>
 
-<!-- Bootstrap CDN -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<div class="home-footer">
+  © 2025 Plataforma de Monitoria — Ibmec  
+</div>
 
-<script>
-fetch('/api/vagas/')
-  .then(r => r.json())
-  .then(data => {
-    const el = document.getElementById('vagas');
-    if (!Array.isArray(data) || data.length === 0) {
-      el.innerHTML = '<div class="alert alert-warning">Nenhuma vaga aberta.</div>';
-      return;
-    }
-    el.innerHTML = '<ul class="list-group">' + data.map(v => `<li class="list-group-item">${v.titulo || v.nome}</li>`).join('') + '</ul>';
-  })
-  .catch(err => {
-    console.error(err);
-    document.getElementById('vagas').innerHTML = '<div class="alert alert-danger">Erro ao carregar vagas.</div>';
-  });
-</script>
 {% endblock %}

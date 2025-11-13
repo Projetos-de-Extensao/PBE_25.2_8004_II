@@ -4,51 +4,87 @@
 {% block title %}Dashboard do Aluno{% endblock %}
 
 {% block content %}
-<div class="container">
-  <h1>Bem-vindo, {{ usuario.get_full_name|default:usuario.username }}!</h1>
-  <h2>Área do Aluno</h2>
+<div class="container mt-4">
 
-  <section class="status-aluno">
-    <h3>Suas Inscrições recentes</h3>
+  <h1 class="mb-1">
+    Bem-vindo, {{ usuario.get_full_name|default:usuario.username }}!
+  </h1>
+  <h2 class="h4 text-muted mb-4">Área do Aluno</h2>
+
+  {# SEÇÃO: Inscrições recentes do aluno #}
+  <section class="status-aluno mb-5">
+    <h3 class="h5 mb-3">Suas inscrições recentes</h3>
+
     {% if inscricoes %}
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Vaga</th>
-            <th>Professor</th>
-            <th>Data inscrição</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for inscricao in inscricoes %}
-          <tr>
-            <td>{{ inscricao.vaga.titulo }}</td>
-            <td>{{ inscricao.vaga.professor.get_full_name|default:inscricao.vaga.professor.username }}</td>
-            <td>{{ inscricao.data_inscricao|date:"d/m/Y H:i" }}</td>
-            <td>{{ inscricao.status_inscricao }}</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+          <thead class="thead-light">
+            <tr>
+              <th>Vaga</th>
+              <th>Professor</th>
+              <th>Data da inscrição</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for inscricao in inscricoes %}
+            <tr>
+              <td>{{ inscricao.vaga.titulo }}</td>
+              <td>
+                {{ inscricao.vaga.professor.get_full_name|default:inscricao.vaga.professor.username }}
+              </td>
+              <td>{{ inscricao.data_inscricao|date:"d/m/Y H:i" }}</td>
+              <td>{{ inscricao.status_inscricao }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
     {% else %}
-      <p>Você ainda não se inscreveu em nenhuma vaga.</p>
+      <p class="text-muted mb-0">
+        Você ainda não se inscreveu em nenhuma vaga.
+      </p>
     {% endif %}
   </section>
 
-  <section class="vagas-abertas mt-4">
-    <h3>Vagas abertas</h3>
+  {# SEÇÃO: Vagas criadas pelos professores e abertas para o aluno se inscrever #}
+  <section class="vagas-abertas">
+    <h3 class="h5 mb-3">Vagas abertas criadas pelos professores</h3>
+
     {% if vagas_abertas %}
-      <ul class="list-group">
-        {% for vaga in vagas_abertas %}
-          <li class="list-group-item">
-            <strong>{{ vaga.titulo }}</strong> — Professor: {{ vaga.professor.get_full_name|default:vaga.professor.username }}  
-            <a href="{% url 'candidatar_vaga' vaga.pk %}" class="btn btn-primary btn-sm float-right">Candidatar</a>
-          </li>
-        {% endfor %}
-      </ul>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="thead-light">
+            <tr>
+              <th>Vaga</th>
+              <th>Professor</th>
+              <th class="text-right">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for vaga in vagas_abertas %}
+            <tr>
+              <td>
+                <strong>{{ vaga.titulo }}</strong>
+              </td>
+              <td>
+                {{ vaga.professor.get_full_name|default:vaga.professor.username }}
+              </td>
+              <td class="text-right">
+                <a href="{% url 'candidatar_vaga' vaga.pk %}"
+                   class="btn btn-sm btn-primary">
+                  Candidatar
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
     {% else %}
-      <p>Sem vagas abertas no momento.</p>
+      <p class="text-muted mb-0">
+        Não há vagas abertas criadas pelos professores no momento.
+      </p>
     {% endif %}
   </section>
 
