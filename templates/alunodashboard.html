@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard do Aluno{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Bem-vindo, {{ usuario.get_full_name|default:usuario.username }}!</h1>
+  <h2>Área do Aluno</h2>
+
+  <section class="status-aluno">
+    <h3>Suas Inscrições recentes</h3>
+    {% if inscricoes %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Vaga</th>
+            <th>Professor</th>
+            <th>Data inscrição</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for inscricao in inscricoes %}
+          <tr>
+            <td>{{ inscricao.vaga.titulo }}</td>
+            <td>{{ inscricao.vaga.professor.get_full_name|default:inscricao.vaga.professor.username }}</td>
+            <td>{{ inscricao.data_inscricao|date:"d/m/Y H:i" }}</td>
+            <td>{{ inscricao.status_inscricao }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Você ainda não se inscreveu em nenhuma vaga.</p>
+    {% endif %}
+  </section>
+
+  <section class="vagas-abertas mt-4">
+    <h3>Vagas abertas</h3>
+    {% if vagas_abertas %}
+      <ul class="list-group">
+        {% for vaga in vagas_abertas %}
+          <li class="list-group-item">
+            <strong>{{ vaga.titulo }}</strong> — Professor: {{ vaga.professor.get_full_name|default:vaga.professor.username }}  
+            <a href="{% url 'candidatar_vaga' vaga.pk %}" class="btn btn-primary btn-sm float-right">Candidatar</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Sem vagas abertas no momento.</p>
+    {% endif %}
+  </section>
+
+</div>
+{% endblock %}

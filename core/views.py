@@ -103,3 +103,22 @@ def dashboard_professor(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+def criar_vaga(request):
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        descricao = request.POST.get('descricao')
+        disciplina_id = request.POST.get('disciplina')
+        disciplina = Disciplina.objects.get(id=disciplina_id)
+        Vaga.objects.create(
+            titulo=titulo,
+            descricao=descricao,
+            disciplina=disciplina,
+            professor=request.user.professor_profile,
+            statusvaga='aberta'
+        )
+        return redirect('dashboard_professor')
+    else:
+        disciplinas = Disciplina.objects.all()
+        contexto = {'disciplinas': disciplinas}
+        return render(request, 'criar_vaga.html', contexto)

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard do Professor{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Bem-vindo, Prof. {{ usuario.get_full_name|default:usuario.username }}!</h1>
+  <h2>Área do Professor</h2>
+
+  <section class="suas-vagas">
+    <h3>Suas Vagas criadas</h3>
+    {% if suas_vagas %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Inscrições</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for vaga in suas_vagas %}
+          <tr>
+            <td>{{ vaga.titulo }}</td>
+            <td>{{ vaga.candidaturas.count }}</td>
+            <td>{{ vaga.statusvaga }}</td>
+            <td>
+              <a href="{% url 'editar_vaga' vaga.pk %}" class="btn btn-secondary btn-sm">Editar</a>
+              <a href="{% url 'ver_vaga' vaga.pk %}" class="btn btn-primary btn-sm">Ver</a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Você ainda não criou nenhuma vaga.</p>
+    {% endif %}
+  </section>
+
+  <section class="nova-vaga mt-4">
+    <h3>Criar nova vaga</h3>
+    <a href="{% url 'criar_vaga' %}" class="btn btn-success">Nova Vaga</a>
+  </section>
+</div>
+{% endblock %}
