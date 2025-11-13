@@ -1,0 +1,142 @@
+/* =============================== */
+/*   LOGIN DO ALUNO – VISUAL LIMPO */
+/* =============================== */
+
+:root {
+  --cor-primaria: #0b2545;       /* azul ibmec */
+  --cor-texto: #0b2545;
+  --cor-muted: #5c6b80;
+  --cor-borda: #d9e1ec;
+  --cor-card: #ffffff;
+  --cor-amarelo: #f6b800;
+  --radius: 16px;
+  --shadow: 0 14px 40px rgba(11, 37, 69, 0.15);
+}
+
+/* Centralização da página */
+body {
+  background: #f3f5fa;
+}
+
+/* Card principal */
+.card-login {
+  width: 100%;
+  max-width: 420px;
+  background: var(--cor-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--cor-borda);
+  box-shadow: var(--shadow);
+  padding: 26px 22px 20px;
+}
+
+/* Logo */
+.login-logo {
+  height: 42px;
+  margin-bottom: 10px;
+}
+
+/* Títulos */
+.login-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--cor-texto);
+}
+
+.login-subtitle {
+  font-size: 0.90rem;
+  color: var(--cor-muted);
+  margin-top: -4px;
+  margin-bottom: 16px;
+}
+
+/* Labels */
+label {
+  font-weight: 600;
+  color: var(--cor-texto);
+  font-size: 0.95rem;
+}
+
+/* Inputs */
+.form-control {
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  border: 1px solid var(--cor-borda);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease, transform 0.08s ease;
+}
+
+.form-control:focus {
+  border-color: #7fa3ff;
+  box-shadow: 0 0 0 3px rgba(127, 163, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Check de lembrar-me */
+.form-check-label {
+  color: var(--cor-muted);
+}
+
+/* Link "esqueci a senha" */
+.login-forgot {
+  text-decoration: none;
+  color: #0b5bd3;
+  font-weight: 500;
+}
+
+.login-forgot:hover {
+  text-decoration: underline;
+}
+
+/* Botão de Entrar */
+.login-btn {
+  width: 100%;
+  padding: 11px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  background: var(--cor-primaria);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(11, 37, 69, 0.28);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.1s ease;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(11, 37, 69, 0.33);
+}
+
+/* Botão pressionado */
+.login-btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 4px 14px rgba(11, 37, 69, 0.22);
+}
+
+/* Link "voltar" */
+.login-back {
+  font-size: 0.85rem;
+  color: var(--cor-muted);
+  text-decoration: none;
+}
+
+.login-back:hover {
+  text-decoration: underline;
+}
+
+/* Erros */
+.alert {
+  font-size: 0.85rem;
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .card-login {
+    padding: 20px 16px;
+  }
+  .login-title {
+    font-size: 1.3rem;
+  }
+}
