@@ -78,7 +78,13 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('dashboard_aluno')  # ou dashboard_professor, dependendo do tipo de usuário
+            # Redireciona conforme o perfil do usuário
+            if hasattr(user, 'professor_profile'):
+                return redirect('dashboard_professor')
+            elif hasattr(user, 'aluno_profile'):
+                return redirect('dashboard_aluno')
+            else:
+                return redirect('home')
         else:
             contexto = {'erro': 'Usuário ou senha inválidos'}
             return render(request, 'login.html', contexto)
