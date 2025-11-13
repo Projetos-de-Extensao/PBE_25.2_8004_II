@@ -123,8 +123,19 @@ def criar_vaga(request):
         contexto = {'disciplinas': disciplinas}
         return render(request, 'criar_vaga.html', contexto)
     
-def login_professor(request):
-    return render(request, 'login_professor.html')
+def login_professor_view(request):
+    erro = None
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+        # Adapte a autenticação conforme seu modelo de professor
+        user = authenticate(request, username=email, password=senha)
+        if user is not None and hasattr(user, 'professor_profile'):
+            login(request, user)
+            return redirect('dashboard_professor')
+        else:
+            erro = 'E-mail ou senha inválidos, ou usuário não é professor.'
+    return render(request, 'login_professor.html', {'erro': erro})
 
 def login_aluno(request):
     return render(request, 'login_aluno.html')
