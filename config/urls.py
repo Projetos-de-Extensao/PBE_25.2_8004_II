@@ -18,8 +18,7 @@ router.register(r'inscricoes', core_views.InscricaoViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),    # API REST sob /api/
-    path('', include('core.urls')),  
+    path('', include('core.urls')), 
     path('api/', include('core.api_urls')),
     path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),      # site HTML na raiz

@@ -79,9 +79,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             # Redireciona conforme o perfil do usuário
-            if hasattr(user, 'professor_profile'):
-                return redirect('dashboard_professor')
-            elif hasattr(user, 'aluno_profile'):
+            if hasattr(user, 'aluno_profile'):
                 return redirect('dashboard_aluno')
             else:
                 return redirect('home')
@@ -126,7 +124,7 @@ def criar_vaga(request):
 def login_professor_view(request):
     erro = None
     if request.method == 'POST':
-        email = request.POST.get('email')
+        email = request.POST.get('username')
         senha = request.POST.get('senha')
         # Adapte a autenticação conforme seu modelo de professor
         user = authenticate(request, username=email, password=senha)
@@ -138,4 +136,4 @@ def login_professor_view(request):
     return render(request, 'login_professor.html', {'erro': erro})
 
 def login_aluno(request):
-    return render(request, 'login_aluno.html')
+    return render(request, 'login.html')
